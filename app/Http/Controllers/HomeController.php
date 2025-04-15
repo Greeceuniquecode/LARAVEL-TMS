@@ -13,9 +13,9 @@ class HomeController extends Controller
             return redirect("/");
         }
         if ($user->role == "employee") {
-            return redirect('/dashboard');
+            return redirect('/employee/dashboard');
         } elseif ($user->role == "employer") {
-            return redirect("/edashboard");
+            return redirect("/employer/dashboard");
         } else {
             return redirect("/");
         }

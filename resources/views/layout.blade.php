@@ -37,6 +37,9 @@
             <a href="/home" class="hover:text-green-200 duration-300 hover:font-semibold ease-in-out ">Home</a>
             <a href="/about" class="hover:text-green-200 duration-300 hover:font-semibold ease-in-out ">About</a>
             <a href="/contact" class="hover:text-green-200 duration-300 hover:font-semibold ease-in-out ">contact us </a>
+            @if($user)
+            <a href='/tasks' class="hover:text-green-200 duration-300 hover:font-semibold ease-in-out">Task</a>
+            @endif
         </div>
         @if($user)
        <a href="/profile"> 

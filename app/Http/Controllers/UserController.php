@@ -13,13 +13,13 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 class UserController extends Controller
 {
     //validation function
-    public function profileValidator(array $data)
+    public function profileValidator(array $data, $userId = null)
     {
         return Validator::make($data, [
             "name" => ["required", "string", "max:100", "min:3"],
-            "email" => ["required", "string", "max:100", "min:6", "email", Rule::unique('users','email')->ignore(Auth::user()->id)],
+            "email" => ["required", "string", "max:100", "min:6", "email", Rule::unique('users','email')->ignore($userId)],
             "password" => ["required", "min:8", 'max:20', 'string'],
-            "phone" => ["required", "string", "min:10", "max:10",  Rule::unique('users','phone')->ignore(Auth::user()->id)],
+            "phone" => ["required", "string", "min:10", "max:10",  Rule::unique('users','phone')->ignore($userId)],
             'profile_image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
             "gender" => ["required", "string", "min:4", 'max:6'],
             "dob" => ["required", 'date'],
@@ -28,10 +28,14 @@ class UserController extends Controller
     //register function
     public function register(Request $request)
     {
+
+        //calling validator function and passing request data from frontend as argument
         $validator = $this->profileValidator($request->all());
         if ($validator->fails()) {
             return back()->withErrors($validator);
         }
+
+        //Moving images to local folder for saving image path in database
         if (isset($request->profile_image)) {
             $image = $request->profile_image;
             $image_new_name = time() . $image->getClientOriginalName();
@@ -40,6 +44,8 @@ class UserController extends Controller
         } else {
             $imagePath = 'images/user/default.jpg';
         }
+
+        //for saving data in database through model
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
@@ -61,6 +67,7 @@ class UserController extends Controller
         return redirect("/login");
     }
 
+    //LOGIN function
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -76,9 +83,9 @@ class UserController extends Controller
         }
         Auth::login($user);
         if ($user->role == "employee") {
-            return redirect('/dashboard')->with('success','Logged in successfully as employee');
+            return redirect('/employee/dashboard')->with('success','Logged in successfully as employee');
         } elseif ($user->role == "employer") {
-            return redirect("/edashboard")->with('success','Logged in successfully as employer');;
+            return redirect("/employer/dashboard")->with('success','Logged in successfully as employer');;
         } else {
             return redirect("/");
         }
@@ -98,7 +105,7 @@ class UserController extends Controller
         return redirect("/")->with('success','Logged out successfully');
     }
     public function updateProfile(Request $request){
-        $validator=$this->profileValidator($request->all());
+        $validator=$this->profileValidator($request->all(), Auth::id());
         if($validator->fails()){
             return back()->withErrors($validator);
         }

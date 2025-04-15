@@ -18,7 +18,7 @@
                 @error('password')<p class="text-red-600">{{$message}}</p>@enderror  
             </div>
         </div>
-        <button class="w-1/5 p-1 font-bold mx-auto bg-blue-600 border-b-4 border-white rounded-xl hover:bg-blue-800 ease-in-out duration-300 transition-color text-white" type="submit">Submit</button> 
+        <button class="w-1/5 p-1 font-bold mx-auto bg-blue-600 border-b-4 border-white rounded-xl hover:bg-blue-800 ease-in-out duration-300 transition-color text-white" type="submit">Login</button> 
     </form>
     
 </div>
