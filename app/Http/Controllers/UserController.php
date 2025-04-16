@@ -28,13 +28,13 @@ class UserController extends Controller
     //register function
     public function register(Request $request)
     {
+      
 
         //calling validator function and passing request data from frontend as argument
         $validator = $this->profileValidator($request->all());
         if ($validator->fails()) {
             return back()->withErrors($validator);
         }
-
         //Moving images to local folder for saving image path in database
         if (isset($request->profile_image)) {
             $image = $request->profile_image;

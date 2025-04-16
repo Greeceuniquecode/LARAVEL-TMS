@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NavController;
 use App\Http\Controllers\ProfileController;
@@ -72,6 +73,17 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/dashboard', function () {
             return view("/dashboard/employee/employee");
         });
+        Route::get('/task/{id}',[TaskController::class, 'getTaskDetails']);
+        Route::get('/task/{id}/completed',[TaskController::class, 'completeTask']);
+
+        Route::get("/task",[TaskController::class,'authTaskDetails']);
+    });
+
+    Route::prefix('admin')->group(function () {
+        Route::get('/dashboard',[AdminController::class,'adminDashboard']);
+        Route::get('/task/{id}',[TaskController::class, 'getTaskDetails']);
+        Route::get('/task/complete/{id}',[TaskController::class, 'completeTask']);
+        Route::get('/task/reject/{id}',[TaskController::class, 'rejectTask']);
 
         Route::get("/task",[TaskController::class,'authTaskDetails']);
     });

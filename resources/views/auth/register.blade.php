@@ -20,11 +20,17 @@
         </div>
         <div class=" password flex justify-between w-1/2">
             <label class="font-semibold text-gray-800" for="password">Password</label>
-            <input class="border-2 rounded-md px-2 bg-white" name="password" type="text" placeholder="Enter password" name="password" id="password" >
+            <div>
+                <input class="border-2 rounded-md px-2 bg-white" name="password" type="text" placeholder="Enter password" name="password" id="password" >
+                @error('password')<p class="text-red-600">{{$message}}</p>@enderror    
+            </div>
         </div>
         <div class="phone flex justify-between w-1/2">
             <label class="font-semibold text-gray-800" for="phone">Phone number</label>
-            <input  class="border-2 rounded-md px-2 bg-white" type="phone" name="phone" placeholder="Enter your phone number" >
+            <div>
+                <input  class="border-2 rounded-md px-2 bg-white" type="phone" name="phone" placeholder="Enter your phone number" >
+                @error('phone')<p class="text-red-600">{{$message}}</p>@enderror    
+            </div>
         </div>
         <div class="gender flex gap-2 w-2/3">
             <label class="font-semibold text-gray-800 mr-8" for="gender">Gender</label>
@@ -38,7 +44,10 @@
         </div>
         <div class="profile flex w-3/4">
             <label class="font-semibold text-gray-800" for="profile_image">Profile Image</label>
-            <input type="file" placeholder="select image" name="profile_image" class="ml-2 px-2 bg-white border-r rounded-sm">
+            <div>
+                <input type="file" placeholder="select image" name="profile_image" class="ml-2 px-2 bg-white border-r rounded-sm">
+                @error('profile_image')<p class="text-red-600">{{$message}}</p>@enderror    
+            </div>
         </div>
         <button class="w-1/5 p-1 font-bold mx-auto bg-blue-600 border-b-4 border-white rounded-xl hover:bg-blue-800 ease-in-out duration-300 transition-color text-white" type="submit">Register</button>
         

@@ -38,23 +38,35 @@ class TaskController extends Controller
     //Task details
     public function getTaskDetails($id)
     {
+        $user = Auth::user();
         $task = Task::find($id);
-        return view('/dashboard/employer/task/taskDetails', compact('task'));
+        if ($user->role == "employer") {
+            return view('/dashboard/employer/task/taskDetails', compact('task'));
+        }
+        if ($user->role == "employee") {
+            return view('/dashboard/employee/task/taskDetails', compact('task'));
+        }
+        if ($user->role == "admin") {
+            return view('/dashboard/admin/task/taskDetails', compact('task'));
+        }
     }
 
     //Auth Task user detail
     public function authTaskDetails()
     {
         $user = Auth::user();
-        if($user->role=="employer"){
+        if ($user->role == "employer") {
             $tasks = Task::where('user_id', $user->id)->get();
-            return view('/dashboard/employer/task/taskboard',compact('tasks'));
+            return view('/dashboard/employer/task/taskboard', compact('tasks'));
         }
-        if($user->role=="employee"){
+        if ($user->role == "employee") {
             $tasks = Task::whereJsonContains('assigned_user', $user->email)->get();
-            return view('/dashboard/employee/task/taskboard',compact('tasks'));
+            return view('/dashboard/employee/task/taskboard', compact('tasks'));
         }
-
+        if ($user->role == "admin") {
+            $tasks = Task::get();
+            return view('/dashboard/admin/task/taskboard', compact('tasks'));
+        }
     }
     //create task
     public function addTask(Request $request)
@@ -122,8 +134,39 @@ class TaskController extends Controller
 
     public function deleteTask(Request $request)
     {
+        $user=Auth::user();
         $task = Task::find($request->id);
         $task->delete();
-        return redirect('/employer/task')->with('success', 'Task Deleted Successfully');
+        if($user->role=="employer"){
+            return redirect('/employer/task')->with('success', 'Task Deleted Successfully');
+        }
+        elseif($user->role=="admin"){
+            return redirect('/admin/task')->with('success', 'Task Deleted Successfully');
+        }
+        else{
+            return redirect('/tasks')->with('success', 'Task Deleted Successfully');
+        }
+    }
+
+    public function completeTask($id)
+    {
+        $task = Task::find($id);
+        $task->update(
+            [
+                'status' => "completed"
+            ]
+        );
+        return back()->with('success',"Task Completed");
+    }
+
+    public function rejectTask($id)
+    {
+        $task = Task::find($id);
+        $task->update(
+            [
+                'status' => "rejected"
+            ]
+        );
+        return back()->with('error',"Task Rejected");
     }
 }

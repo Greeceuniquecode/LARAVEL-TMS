@@ -15,6 +15,9 @@ class NavController extends Controller
         elseif($user->role=='employee'){
             return redirect('/employee/task');
         }
+        elseif($user->role=='admin'){
+            return redirect('/admin/task');
+        }
         else{
             return redirect('/error');
         }
