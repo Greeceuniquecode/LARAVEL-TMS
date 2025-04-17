@@ -19,6 +19,15 @@
         <span class="text-xl font-bold">Email:</span>
         <span class="text-xl font-bold" >{{$user->email}}</span>  
     </div>
+    <div>
+        <span class="text-xl font-bold">Gender:</span>
+        <span class="text-xl uppercase font-bold" >{{$user->gender}}</span>  
+    </div>
+    <div class="text-xl font-bold">
+        <span class="">Date of Birth:</span>
+        <span class="">{{ \Carbon\Carbon::parse($user->dob)->format('M d, Y') }}</span>
+    </div>
+
 </div>
 <div class="flex w-1/2 mx-auto justify-between">
     <a href="/edit-profile" class="w-1/5 text-center p-1 font-bold bg-blue-600 border-b-4 border-white rounded-xl hover:bg-blue-800 ease-in-out duration-300 transition-color text-white">Edit</a>

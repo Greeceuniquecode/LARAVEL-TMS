@@ -1,5 +1,20 @@
 @extends('layout')
 @section('content')
+<script>
+  $(document).ready(function () {
+    $('#assigned_user').select2({
+      placeholder: "Type to search employee names",
+      minimumInputLength: 1
+    });
+  });
+</script>
+<?php
+use App\Models\User;
+$assignedUsers=json_decode($task->assigned_user);
+$users = User::where('role','employee')->get();
+
+?>
+
 <div class="max-w-3xl mx-auto mt-2 mb-12 px-4">
   <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
     <!-- Gradient Header -->
@@ -97,18 +112,15 @@
         <div class="space-y-2">
           <label for="assigned_user" class="block text-sm font-semibold text-gray-700">Assign User</label>
           <div>
-            <input 
-            value="{{$task->assigned_user}}"
-            type="email" 
-            name="assigned_user" 
-            id="assigned_user" 
-            placeholder="Enter user email" 
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-          >
-          @error('assigned_user')
-            <p class="text-red-600 text-sm mt-1">{{$message}}</p>
-          @enderror
-        </div>
+            <select name="assigned_user[]" id="assigned_user" multiple style="width: 100%">
+              @foreach($users as $user)
+                <option value="{{ $user->id }}">{{ $user->name }}</option>
+              @endforeach
+            </select>
+            @error('assigned_user')
+              <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+            @enderror
+          </div>
         </div>
         <!-- Submit Button -->
         <div class="pt-4">

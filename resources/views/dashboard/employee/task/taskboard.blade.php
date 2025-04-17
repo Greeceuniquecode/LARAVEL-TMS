@@ -14,7 +14,7 @@
   {{session('error')}}
 </span>
 @endsession   
-    <div class="container mx-auto px-4 py-6">
+    <div class="container mx-auto px-4">
         <h1 class="text-2xl font-bold text-gray-800 mb-6">Task Board</h1>
         
         <!-- Task columns -->
@@ -48,9 +48,23 @@
                                 <span>{{ \Carbon\Carbon::parse($task->end_date)->format('M d') }}</span>
                             </div>
                             
+                    @php
+                        $assignedUserIds = json_decode($task->assigned_user, true) ?? [];
+                    @endphp
+                    <div class="flex gap-2">
+                    @foreach($assignedUserIds as $userId)
+                        @php
+                            $user = \App\Models\User::find($userId);
+                        @endphp
+
+                         @if($user)
+
                             <div class="flex items-center">
-                                <img src="https://ui-avatars.com/api/?name={{ urlencode($task->assignedUser->name ?? 'NA') }}&size=24" class="w-6 h-6 rounded-full" alt="Avatar">
+                                <img src="{{ asset($user->profile_image)}}" class="w-6 h-6 rounded-full" alt="Avatar">
                             </div>
+                        @endif
+                            @endforeach
+                        </div>
                         </div>
                     </div>
                     @endforeach
@@ -86,9 +100,23 @@
                                 <span>{{ \Carbon\Carbon::parse($task->end_date)->format('M d') }}</span>
                             </div>
                             
+                    @php
+                        $assignedUserIds = json_decode($task->assigned_user, true) ?? [];
+                    @endphp
+                    <div class="flex gap-2">
+                    @foreach($assignedUserIds as $userId)
+                        @php
+                            $user = \App\Models\User::find($userId);
+                        @endphp
+
+                         @if($user)
+
                             <div class="flex items-center">
-                                <img src="https://ui-avatars.com/api/?name={{ urlencode($task->assignedUser->name ?? 'NA') }}&size=24" class="w-6 h-6 rounded-full" alt="Avatar">
+                                <img src="{{ asset($user->profile_image)}}" class="w-6 h-6 rounded-full" alt="Avatar">
                             </div>
+                        @endif
+                            @endforeach
+                        </div>
                         </div>
                     </div>
                     @endforeach
@@ -124,9 +152,23 @@
                                 <span>{{ \Carbon\Carbon::parse($task->end_date)->format('M d') }}</span>
                             </div>
                             
+                    @php
+                        $assignedUserIds = json_decode($task->assigned_user, true) ?? [];
+                    @endphp
+                    <div class="flex gap-2">
+                    @foreach($assignedUserIds as $userId)
+                        @php
+                            $user = \App\Models\User::find($userId);
+                        @endphp
+
+                         @if($user)
+
                             <div class="flex items-center">
-                                <img src="https://ui-avatars.com/api/?name={{ urlencode($task->assignedUser->name ?? 'NA') }}&size=24" class="w-6 h-6 rounded-full" alt="Avatar">
+                                <img src="{{ asset($user->profile_image)}}" class="w-6 h-6 rounded-full" alt="Avatar">
                             </div>
+                        @endif
+                            @endforeach
+                        </div>
                         </div>
                     </div>
                     @endforeach
@@ -161,9 +203,23 @@
                                 <span>{{ \Carbon\Carbon::parse($task->end_date)->format('M d') }}</span>
                             </div>
                             
+                    @php
+                        $assignedUserIds = json_decode($task->assigned_user, true) ?? [];
+                    @endphp
+                    <div class="flex gap-2">
+                    @foreach($assignedUserIds as $userId)
+                        @php
+                            $user = \App\Models\User::find($userId);
+                        @endphp
+
+                         @if($user)
+
                             <div class="flex items-center">
-                                <img src="https://ui-avatars.com/api/?name={{ urlencode($task->assignedUser->name ?? 'NA') }}&size=24" class="w-6 h-6 rounded-full" alt="Avatar">
+                                <img src="{{ asset($user->profile_image)}}" class="w-6 h-6 rounded-full" alt="Avatar">
                             </div>
+                        @endif
+                            @endforeach
+                        </div>
                         </div>
                     </div>
                     @endforeach

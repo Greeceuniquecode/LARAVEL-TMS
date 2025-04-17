@@ -18,20 +18,7 @@ class TaskController extends Controller
             'description' => 'required|min:4|string',
             'start_date' => 'required|date',
             'end_date' => 'required|date',
-            'assigned_user' => [
-                'nullable',
-                'email',
-                'min:3',
-                function ($attribute, $value, $fail) {
-                    $user = User::where('email', $value)
-                        ->where('role', 'employee')
-                        ->first();
-
-                    if (!$user) {
-                        $fail('The selected assigned user must be an existing employee.');
-                    }
-                },
-            ],
+            'assigned_user' => 'nullable'
         ]);
     }
 
@@ -60,7 +47,7 @@ class TaskController extends Controller
             return view('/dashboard/employer/task/taskboard', compact('tasks'));
         }
         if ($user->role == "employee") {
-            $tasks = Task::whereJsonContains('assigned_user', $user->email)->get();
+            $tasks = Task::whereJsonContains('assigned_user', (string) $user->id)->get();
             return view('/dashboard/employee/task/taskboard', compact('tasks'));
         }
         if ($user->role == "admin") {

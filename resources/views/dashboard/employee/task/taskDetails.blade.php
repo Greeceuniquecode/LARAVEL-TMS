@@ -1,6 +1,6 @@
 @extends('layout')
 @section('content')
-<div class="container mx-auto px-4 py-6">
+<div class="container mx-auto px-4">
     <div class="flex items-center mb-6">
         <a href="/employer/task" class="text-blue-600 hover:text-blue-800 flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -36,10 +36,24 @@
                 
                 <div class="bg-gray-100 rounded-lg px-4 py-3 w-full lg:w-1/3 mb-4 lg:mb-0 lg:mr-4">
                     <h3 class="text-sm font-semibold text-gray-500 mb-1">Assigned To</h3>
-                    <div class="flex items-center">
-                        <img src="https://ui-avatars.com/api/?name={{ urlencode($task->assignedUser->name ?? 'Unassigned') }}&background=random" alt="Avatar" class="w-6 h-6 rounded-full mr-2">
-                        <span class="font-medium text-gray-800">{{ $task->assignedUser->name ?? 'Unassigned' }}</span>
-                    </div>
+                    @php
+                        $assignedUserIds = json_decode($task->assigned_user, true) ?? [];
+                    @endphp
+                    <div class="grid grid-cols-1 lg:grid-cols-2">
+                    @foreach($assignedUserIds as $userId)
+                        @php
+                            $user = \App\Models\User::find($userId);
+                        @endphp
+
+                         @if($user)
+
+                            <div class="flex items-center mb-1">
+                                <img src="{{ asset($user->profile_image)}}" class="w-6 h-6 mr-2 rounded-full" alt="Avatar">
+                                <span class="font-medium text-gray-800">{{ $user->name ?? 'Unassigned' }}</span>
+                            </div>
+                        @endif
+                            @endforeach
+                        </div>
                 </div>
                 
                 <div class="bg-gray-100 rounded-lg px-4 py-3 w-full lg:w-1/3">

@@ -85,7 +85,9 @@ class UserController extends Controller
         if ($user->role == "employee") {
             return redirect('/employee/dashboard')->with('success','Logged in successfully as employee');
         } elseif ($user->role == "employer") {
-            return redirect("/employer/dashboard")->with('success','Logged in successfully as employer');;
+            return redirect("/employer/dashboard")->with('success','Logged in successfully as employer');
+        } elseif ($user->role == "admin") {
+            return redirect("/admin/dashboard")->with('success','Logged in successfully as admin');
         } else {
             return redirect("/");
         }

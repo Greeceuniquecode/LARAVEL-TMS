@@ -13,13 +13,13 @@
         <img class="h-auto max-w-lg ms-auto h-60 " src="http://127.0.0.1:8000/images/img.png" alt="ex-2">
         <img class="absolute top-50 right-120 w-100 h-60 mx-auto object-center" src="http://127.0.0.1:8000/images/NEW.png" alt="logo1">
     </div>
-    <div class=" p-4 border-2 mt-4 rounded-xl w-1/2  mx-auto bg-linear-to-t from-blue-400 to-white text-center font-semibold text xl text-black-300">
+    <div class=" p-4 border-2 mt-4 rounded-xl w-1/2  mx-auto bg-linear-to-t from-blue-400 to-white text-center font-semibold text-3xl text-black-300">
         <p>At LimitlessTMS, we believe in pushing productivity beyond limits. Our powerful task management system is designed to help individuals and teams stay organized, streamline workflows, and achieve their goals effortlessly. With intuitive features, real-time collaboration, and smart automation, LimitlessTMS transforms the way you manage tasks so you can focus on what truly matters.</p>
     </div>
     <div class=" w-1/2 mt-5 text-center mx-auto underline   font-extrabold text-5xl text-blue-700">
         <h1 >Why Choose LimitlessTMS?</h1>
     </div>
-    <div class="p-4 border-2 mt-4 rounded-xl w-1/2  mx-auto bg-linear-to-t from-blue-400 to-white  font-semibold text xl text-black-300">
+    <div class="p-4 border-2 mt-4 rounded-xl w-1/2  mx-auto bg-linear-to-t from-blue-400 to-white  font-semibold text-2xl text-black-300">
         <p class="text-orange-900">In a world full of distractions, staying productive shouldn’t feel like a challenge—it should feel limitless.</p>
              <p class="text-emerald-800">That’s where LimitlessTMS comes in. We designed our task management system to empower you with clarity, efficiency, and control over your work. Whether you're managing personal projects, leading a team, or running a business, LimitlessTMS adapts to your workflow, not the other way around.</p>
 

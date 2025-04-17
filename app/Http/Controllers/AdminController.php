@@ -17,7 +17,7 @@ class AdminController extends Controller
 
         if($authUser->role=='admin')
         {
-            return view("/dashboard/admin/dashboard",compact('user','task','authUser'));
+            return view("/dashboard/admin/dashboard",compact('user','task',));
         }
         else{
             return redirect("/");

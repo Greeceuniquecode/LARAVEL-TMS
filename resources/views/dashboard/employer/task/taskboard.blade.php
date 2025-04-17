@@ -20,7 +20,7 @@
             Add Tasks</a>
     </div>
     
-    <div class="container mx-auto px-4 py-6">
+    <div class="container mx-auto px-4">
         <h1 class="text-2xl font-bold text-gray-800 mb-6">Task Board</h1>
         
         <!-- Task columns -->
@@ -34,7 +34,7 @@
                 
                 <div class="space-y-4">
                     @foreach ($tasks->where('status', 'pending') as $task)
-                    <div class="bg-white rounded-lg shadow p-4 border-l-4 hover:bg-gray-50 hover:scale-101 duration-200 border-gray-400">
+                    <div class="bg-white rounded-lg shadow p-4 border-l-4 hover:bg-blue-50 hover:scale-101 duration-200 border-gray-400">
                         <div class="flex justify-between items-start">
                         <a href='/employer/task/{{$task->id}}'>
                             <h3 class="font-medium text-gray-800">{{ $task->name }}</h3>
@@ -54,9 +54,23 @@
                                 <span>{{ \Carbon\Carbon::parse($task->end_date)->format('M d') }}</span>
                             </div>
                             
+                    @php
+                        $assignedUserIds = json_decode($task->assigned_user, true) ?? [];
+                    @endphp
+                    <div class="flex gap-2">
+                    @foreach($assignedUserIds as $userId)
+                        @php
+                            $user = \App\Models\User::find($userId);
+                        @endphp
+
+                         @if($user)
+
                             <div class="flex items-center">
-                                <img src="https://ui-avatars.com/api/?name={{ urlencode($task->assignedUser->name ?? 'NA') }}&size=24" class="w-6 h-6 rounded-full" alt="Avatar">
+                                <img src="{{ asset($user->profile_image)}}" class="w-6 h-6 rounded-full" alt="Avatar">
                             </div>
+                        @endif
+                            @endforeach
+                        </div>
                         </div>
                     </div>
                     @endforeach
@@ -72,7 +86,7 @@
                 
                 <div class="space-y-4">
                     @foreach ($tasks->where('status', 'processing') as $task)
-                    <div class="bg-white rounded-lg shadow p-4 border-l-4 hover:bg-gray-50 hover:scale-101 duration-200 border-yellow-500">
+                    <div class="bg-white rounded-lg shadow p-4 border-l-4 hover:bg-blue-50 hover:scale-101 duration-200 border-yellow-500">
                         <div class="flex justify-between items-start">
                         <a href='/employer/task/{{$task->id}}'>
                             <h3 class="font-medium text-gray-800">{{ $task->name }}</h3>
@@ -92,9 +106,23 @@
                                 <span>{{ \Carbon\Carbon::parse($task->end_date)->format('M d') }}</span>
                             </div>
                             
+                    @php
+                        $assignedUserIds = json_decode($task->assigned_user, true) ?? [];
+                    @endphp
+                    <div class="flex gap-2">
+                    @foreach($assignedUserIds as $userId)
+                        @php
+                            $user = \App\Models\User::find($userId);
+                        @endphp
+
+                         @if($user)
+
                             <div class="flex items-center">
-                                <img src="https://ui-avatars.com/api/?name={{ urlencode($task->assignedUser->name ?? 'NA') }}&size=24" class="w-6 h-6 rounded-full" alt="Avatar">
+                                <img src="{{ asset($user->profile_image)}}" class="w-6 h-6 rounded-full" alt="Avatar">
                             </div>
+                        @endif
+                            @endforeach
+                        </div>
                         </div>
                     </div>
                     @endforeach
@@ -110,7 +138,7 @@
                 
                 <div class="space-y-4">
                     @foreach ($tasks->where('status', 'completed') as $task)
-                    <div class="bg-white rounded-lg shadow p-4 border-l-4 hover:bg-gray-50 hover:scale-101 duration-200 border-green-500">
+                    <div class="bg-white rounded-lg shadow p-4 border-l-4 hover:bg-blue-50 hover:scale-101 duration-200 border-green-500">
                         <div class="flex justify-between items-start">
                         <a href='/employer/task/{{$task->id}}'>
                             <h3 class="font-medium text-gray-800">{{ $task->name }}</h3>
@@ -130,9 +158,23 @@
                                 <span>{{ \Carbon\Carbon::parse($task->end_date)->format('M d') }}</span>
                             </div>
                             
+                    @php
+                        $assignedUserIds = json_decode($task->assigned_user, true) ?? [];
+                    @endphp
+                    <div class="flex gap-2">
+                    @foreach($assignedUserIds as $userId)
+                        @php
+                            $user = \App\Models\User::find($userId);
+                        @endphp
+
+                         @if($user)
+
                             <div class="flex items-center">
-                                <img src="https://ui-avatars.com/api/?name={{ urlencode($task->assignedUser->name ?? 'NA') }}&size=24" class="w-6 h-6 rounded-full" alt="Avatar">
+                                <img src="{{ asset($user->profile_image)}}" class="w-6 h-6 rounded-full" alt="Avatar">
                             </div>
+                        @endif
+                            @endforeach
+                        </div>
                         </div>
                     </div>
                     @endforeach
@@ -147,7 +189,7 @@
                 
                 <div class="space-y-4">
                     @foreach ($tasks->where('status', 'rejected') as $task)
-                    <div class="bg-white rounded-lg shadow p-4 border-l-4 hover:bg-gray-50 hover:scale-101 duration-200 border-red-500">
+                    <div class="bg-white rounded-lg shadow p-4 border-l-4 hover:bg-blue-50 hover:scale-101 duration-200 border-red-500">
                         <div class="flex justify-between items-start">
                         <a href='/employer/task/{{$task->id}}'>
                             <h3 class="font-medium text-gray-800">{{ $task->name }}</h3>
@@ -167,9 +209,23 @@
                                 <span>{{ \Carbon\Carbon::parse($task->end_date)->format('M d') }}</span>
                             </div>
                             
+                    @php
+                        $assignedUserIds = json_decode($task->assigned_user, true) ?? [];
+                    @endphp
+                    <div class="flex gap-2">
+                    @foreach($assignedUserIds as $userId)
+                        @php
+                            $user = \App\Models\User::find($userId);
+                        @endphp
+
+                         @if($user)
+
                             <div class="flex items-center">
-                                <img src="https://ui-avatars.com/api/?name={{ urlencode($task->assignedUser->name ?? 'NA') }}&size=24" class="w-6 h-6 rounded-full" alt="Avatar">
+                                <img src="{{ asset($user->profile_image)}}" class="w-6 h-6 rounded-full" alt="Avatar">
                             </div>
+                        @endif
+                            @endforeach
+                        </div>
                         </div>
                     </div>
                     @endforeach
