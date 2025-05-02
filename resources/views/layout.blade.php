@@ -37,28 +37,50 @@
 @endsession
 
 
-    <header class="nav bg-gray-50 flex text-white text-lg border-b-6 border-gray-600 rounded-b-2xl justify-between p-2 px-6 cursor-pointer">
-        <div class="flex gap-5">
-            <a href="/" class="">
-                <img class="h-13 w-13 " src="{{asset('images/NEW.png')}}" alt="logo">
+<header x-data="{ open: false }" class="nav bg-gray-50 flex flex-col md:flex-row text-white text-lg border-b-6 border-gray-600 rounded-b-2xl p-2 px-6 cursor-pointer">
+    <div class="flex justify-between items-center">
+        <div class="flex items-center gap-5">
+            <a href="/">
+                <img class="h-13 w-13" src="{{asset('images/NEW.png')}}" alt="logo">
             </a>
-            <a href="/home" class="border-transparent text-gray-500 hover:border-indigo-500 hover:text-indigo-600 inline-flex items-center px-1 pt-1 border-b-2 text-lg font-medium ">Home</a>
-            <a href="/about" class="border-transparent text-gray-500 hover:border-indigo-500 hover:text-indigo-600 inline-flex items-center px-1 pt-1 border-b-2 text-lg font-medium ">About</a>
-            <a href="/contact" class="border-transparent text-gray-500 hover:border-indigo-500 hover:text-indigo-600 inline-flex items-center px-1 pt-1 border-b-2 text-lg font-medium ">contact us </a>
-            @if($user)
-            <a href='/tasks' class="border-transparent text-gray-500 hover:border-indigo-500 hover:text-indigo-600 inline-flex items-center px-1 pt-1 border-b-2 text-lg font-medium">Task</a>
-            @endif
+            <button @click="open = !open" class="md:hidden text-gray-700 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path x-show="!open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    <path x-show="open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
         </div>
+
         @if($user)
-       <a href="/profile"> 
-        <img class="rounded-full h-12 w-12 border-2 border-black my-auto" src="{{asset($user->profile_image)}}" >
-       </a>
+        <a href="/profile" class="hidden md:block">
+            <img class="rounded-full h-12 w-12 border-2 border-black" src="{{asset($user->profile_image)}}" alt="profile">
+        </a>
         @else
-        <div class="flex gap-5">
-        <a href="/login" class="border-transparent text-gray-500 hover:border-indigo-500 hover:text-indigo-600 inline-flex items-center px-1 pt-1 border-b-2 text-lg font-medium  ">Login</a>
-        <a href="/register" class="border-transparent text-gray-500 hover:border-indigo-500 hover:text-indigo-600 inline-flex items-center px-1 pt-1 border-b-2 text-lg font-medium ">register</a>
+        <div class="hidden md:flex gap-5">
+            <a href="/login" class="border-transparent text-gray-500 hover:border-indigo-500 hover:text-indigo-600 inline-flex items-center px-1 pt-1 border-b-2 font-medium">Login</a>
+            <a href="/register" class="border-transparent text-gray-500 hover:border-indigo-500 hover:text-indigo-600 inline-flex items-center px-1 pt-1 border-b-2 font-medium">Register</a>
         </div>
         @endif
+    </div>
+
+    <div :class="{'block': open, 'hidden': !open}" class="md:flex flex-col md:flex-row gap-5 mt-2 md:mt-0">
+        <a href="/home" class="border-transparent text-gray-500 hover:border-indigo-500 hover:text-indigo-600 inline-flex items-center px-1 pt-1 border-b-2 font-medium">Home</a>
+        <a href="/about" class="border-transparent text-gray-500 hover:border-indigo-500 hover:text-indigo-600 inline-flex items-center px-1 pt-1 border-b-2 font-medium">About</a>
+        <a href="/contact" class="border-transparent text-gray-500 hover:border-indigo-500 hover:text-indigo-600 inline-flex items-center px-1 pt-1 border-b-2 font-medium">Contact Us</a>
+        @if($user)
+        <a href='/tasks' class="border-transparent text-gray-500 hover:border-indigo-500 hover:text-indigo-600 inline-flex items-center px-1 pt-1 border-b-2 font-medium">Task</a>
+        @endif
+        @if(!$user)
+        <div class="md:hidden flex flex-col gap-2 mt-2">
+            <a href="/login" class="border-transparent text-gray-500 hover:border-indigo-500 hover:text-indigo-600 inline-flex items-center px-1 pt-1 border-b-2 font-medium">Login</a>
+            <a href="/register" class="border-transparent text-gray-500 hover:border-indigo-500 hover:text-indigo-600 inline-flex items-center px-1 pt-1 border-b-2 font-medium">Register</a>
+        </div>
+        @endif
+    </div>
+
+<!-- Include Alpine.js in your layout if it's not already present -->
+<script src="//unpkg.com/alpinejs" defer></script>
+
     </header>
     <section class="bg-gray-50 min-h-[70vh] py-6">
         @yield('content')
