@@ -37,46 +37,36 @@
 @endsession
 
 <header x-data="{ open: false }" class="nav bg-gray-50 text-white text-lg border-b-6 border-gray-600 rounded-b-2xl p-2 px-6 cursor-pointer">
-    <div class="flex justify-between items-center w-full">
-        <!-- Left: Logo and Menu Button -->
-        <div class="flex items-center gap-5">
+    <!-- Top row (Logo + Toggle on mobile) -->
+    <div class="flex justify-between items-center md:hidden">
+        <a href="/">
+            <img class="h-13 w-13" src="{{asset('images/NEW.png')}}" alt="logo">
+        </a>
+        <button @click="open = !open" class="text-gray-700 focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path x-show="!open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                <path x-show="open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Desktop layout -->
+    <div class="hidden md:flex justify-between items-center w-full">
+        <!-- Left: Logo and Nav links -->
+        <div class="flex gap-5 items-center">
             <a href="/">
                 <img class="h-13 w-13" src="{{asset('images/NEW.png')}}" alt="logo">
             </a>
-            <button @click="open = !open" class="md:hidden text-gray-700 focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path x-show="!open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                    <path x-show="open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                </svg>
-            </button>
-        </div>
-
-        <!-- Right: Auth/Profile Section -->
-        <div class="hidden md:flex items-center gap-5">
-            @if($user)
-            <a href="/profile">
-                <img class="rounded-full h-12 w-12 border-2 border-black" src="{{asset($user->profile_image)}}" alt="profile">
-            </a>
-            @else
-            <a href="/login" class="border-transparent text-gray-500 hover:border-indigo-500 hover:text-indigo-600 inline-flex items-center px-1 pt-1 border-b-2 font-medium">Login</a>
-            <a href="/register" class="border-transparent text-gray-500 hover:border-indigo-500 hover:text-indigo-600 inline-flex items-center px-1 pt-1 border-b-2 font-medium">Register</a>
-            @endif
-        </div>
-    </div>
-
-    <!-- Mobile Menu: Navigation Links + Auth -->
-    <div :class="{'block': open, 'hidden': !open}" class="md:flex md:items-center md:justify-between mt-2 md:mt-0 hidden flex-col md:flex-row gap-2 w-full">
-        <div class="flex flex-col md:flex-row gap-2 md:gap-5">
             <a href="/home" class="border-transparent text-gray-500 hover:border-indigo-500 hover:text-indigo-600 inline-flex items-center px-1 pt-1 border-b-2 font-medium">Home</a>
             <a href="/about" class="border-transparent text-gray-500 hover:border-indigo-500 hover:text-indigo-600 inline-flex items-center px-1 pt-1 border-b-2 font-medium">About</a>
             <a href="/contact" class="border-transparent text-gray-500 hover:border-indigo-500 hover:text-indigo-600 inline-flex items-center px-1 pt-1 border-b-2 font-medium">Contact Us</a>
             @if($user)
-            <a href='/tasks' class="border-transparent text-gray-500 hover:border-indigo-500 hover:text-indigo-600 inline-flex items-center px-1 pt-1 border-b-2 font-medium">Task</a>
+            <a href="/tasks" class="border-transparent text-gray-500 hover:border-indigo-500 hover:text-indigo-600 inline-flex items-center px-1 pt-1 border-b-2 font-medium">Task</a>
             @endif
         </div>
 
-        <!-- Mobile: Auth/Profile on right side -->
-        <div class="flex flex-col md:hidden gap-2 items-end mt-2">
+        <!-- Right: Auth section -->
+        <div class="flex gap-5 items-center">
             @if($user)
             <a href="/profile">
                 <img class="rounded-full h-12 w-12 border-2 border-black" src="{{asset($user->profile_image)}}" alt="profile">
@@ -88,8 +78,25 @@
         </div>
     </div>
 
-<!-- Include Alpine.js if not already in your layout -->
+    <!-- Mobile dropdown -->
+    <div x-show="open" class="md:hidden mt-3 flex flex-col gap-3">
+        <a href="/home" class="border-transparent text-gray-500 hover:border-indigo-500 hover:text-indigo-600 inline-flex items-center border-b-2 font-medium">Home</a>
+        <a href="/about" class="border-transparent text-gray-500 hover:border-indigo-500 hover:text-indigo-600 inline-flex items-center border-b-2 font-medium">About</a>
+        <a href="/contact" class="border-transparent text-gray-500 hover:border-indigo-500 hover:text-indigo-600 inline-flex items-center border-b-2 font-medium">Contact Us</a>
+        @if($user)
+        <a href="/tasks" class="border-transparent text-gray-500 hover:border-indigo-500 hover:text-indigo-600 inline-flex items-center border-b-2 font-medium">Task</a>
+        <a href="/profile" class="flex items-center gap-2">
+            <img class="rounded-full h-10 w-10 border-2 border-black" src="{{asset($user->profile_image)}}" alt="profile">
+            <span class="text-gray-700">Profile</span>
+        </a>
+        @else
+        <a href="/login" class="border-transparent text-gray-500 hover:border-indigo-500 hover:text-indigo-600 inline-flex items-center border-b-2 font-medium">Login</a>
+        <a href="/register" class="border-transparent text-gray-500 hover:border-indigo-500 hover:text-indigo-600 inline-flex items-center border-b-2 font-medium">Register</a>
+        @endif
+    </div>
+<!-- Alpine.js (Only if not already included) -->
 <script src="//unpkg.com/alpinejs" defer></script>
+
 
 
     </header>
