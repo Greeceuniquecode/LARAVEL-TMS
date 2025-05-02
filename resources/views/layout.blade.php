@@ -36,9 +36,9 @@
 </span>
 @endsession
 
-
-<header x-data="{ open: false }" class="nav bg-gray-50 flex flex-col md:flex-row text-white text-lg border-b-6 border-gray-600 rounded-b-2xl p-2 px-6 cursor-pointer">
-    <div class="flex justify-between items-center">
+<header x-data="{ open: false }" class="nav bg-gray-50 text-white text-lg border-b-6 border-gray-600 rounded-b-2xl p-2 px-6 cursor-pointer">
+    <div class="flex justify-between items-center w-full">
+        <!-- Left: Logo and Menu Button -->
         <div class="flex items-center gap-5">
             <a href="/">
                 <img class="h-13 w-13" src="{{asset('images/NEW.png')}}" alt="logo">
@@ -51,35 +51,46 @@
             </button>
         </div>
 
-        @if($user)
-        <a href="/profile" class="hidden md:block">
-            <img class="rounded-full h-12 w-12 border-2 border-black" src="{{asset($user->profile_image)}}" alt="profile">
-        </a>
-        @else
-        <div class="hidden md:flex gap-5">
+        <!-- Right: Auth/Profile Section -->
+        <div class="hidden md:flex items-center gap-5">
+            @if($user)
+            <a href="/profile">
+                <img class="rounded-full h-12 w-12 border-2 border-black" src="{{asset($user->profile_image)}}" alt="profile">
+            </a>
+            @else
             <a href="/login" class="border-transparent text-gray-500 hover:border-indigo-500 hover:text-indigo-600 inline-flex items-center px-1 pt-1 border-b-2 font-medium">Login</a>
             <a href="/register" class="border-transparent text-gray-500 hover:border-indigo-500 hover:text-indigo-600 inline-flex items-center px-1 pt-1 border-b-2 font-medium">Register</a>
+            @endif
         </div>
-        @endif
     </div>
 
-    <div :class="{'block': open, 'hidden': !open}" class="md:flex flex-col md:flex-row gap-5 mt-2 md:mt-0">
-        <a href="/home" class="border-transparent text-gray-500 hover:border-indigo-500 hover:text-indigo-600 inline-flex items-center px-1 pt-1 border-b-2 font-medium">Home</a>
-        <a href="/about" class="border-transparent text-gray-500 hover:border-indigo-500 hover:text-indigo-600 inline-flex items-center px-1 pt-1 border-b-2 font-medium">About</a>
-        <a href="/contact" class="border-transparent text-gray-500 hover:border-indigo-500 hover:text-indigo-600 inline-flex items-center px-1 pt-1 border-b-2 font-medium">Contact Us</a>
-        @if($user)
-        <a href='/tasks' class="border-transparent text-gray-500 hover:border-indigo-500 hover:text-indigo-600 inline-flex items-center px-1 pt-1 border-b-2 font-medium">Task</a>
-        @endif
-        @if(!$user)
-        <div class="md:hidden flex flex-col gap-2 mt-2">
+    <!-- Mobile Menu: Navigation Links + Auth -->
+    <div :class="{'block': open, 'hidden': !open}" class="md:flex md:items-center md:justify-between mt-2 md:mt-0 hidden flex-col md:flex-row gap-2 w-full">
+        <div class="flex flex-col md:flex-row gap-2 md:gap-5">
+            <a href="/home" class="border-transparent text-gray-500 hover:border-indigo-500 hover:text-indigo-600 inline-flex items-center px-1 pt-1 border-b-2 font-medium">Home</a>
+            <a href="/about" class="border-transparent text-gray-500 hover:border-indigo-500 hover:text-indigo-600 inline-flex items-center px-1 pt-1 border-b-2 font-medium">About</a>
+            <a href="/contact" class="border-transparent text-gray-500 hover:border-indigo-500 hover:text-indigo-600 inline-flex items-center px-1 pt-1 border-b-2 font-medium">Contact Us</a>
+            @if($user)
+            <a href='/tasks' class="border-transparent text-gray-500 hover:border-indigo-500 hover:text-indigo-600 inline-flex items-center px-1 pt-1 border-b-2 font-medium">Task</a>
+            @endif
+        </div>
+
+        <!-- Mobile: Auth/Profile on right side -->
+        <div class="flex flex-col md:hidden gap-2 items-end mt-2">
+            @if($user)
+            <a href="/profile">
+                <img class="rounded-full h-12 w-12 border-2 border-black" src="{{asset($user->profile_image)}}" alt="profile">
+            </a>
+            @else
             <a href="/login" class="border-transparent text-gray-500 hover:border-indigo-500 hover:text-indigo-600 inline-flex items-center px-1 pt-1 border-b-2 font-medium">Login</a>
             <a href="/register" class="border-transparent text-gray-500 hover:border-indigo-500 hover:text-indigo-600 inline-flex items-center px-1 pt-1 border-b-2 font-medium">Register</a>
+            @endif
         </div>
-        @endif
     </div>
 
-<!-- Include Alpine.js in your layout if it's not already present -->
+<!-- Include Alpine.js if not already in your layout -->
 <script src="//unpkg.com/alpinejs" defer></script>
+
 
     </header>
     <section class="bg-gray-50 min-h-[70vh] py-6">
