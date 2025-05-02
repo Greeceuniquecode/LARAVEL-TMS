@@ -41,7 +41,7 @@ class UserSeeder extends Seeder
             'dob'=>'2000-01-01',
             'phone'=>'9800000002',
             'password'=>'password',
-            'profile_image'=>'images/user/meuka.jpu.jpg',
+            'profile_image'=>'images/user/meuka.jpg',
             'role'=> 'employer'
         ]);
         DB::table('users')->insert([

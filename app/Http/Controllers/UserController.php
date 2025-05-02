@@ -104,7 +104,7 @@ class UserController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect("/")->with('success','Logged out successfully');
+        return redirect("/home")->with('success','Logged out successfully');
     }
     public function updateProfile(Request $request){
         $validator=$this->profileValidator($request->all(), Auth::id());
