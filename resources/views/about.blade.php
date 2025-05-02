@@ -17,13 +17,13 @@
     <div class="relative bg-white py-12">
         <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
             <div class="flex justify-center">
-                <img class="h-64 object-contain rounded-lg shadow-md" src="http://127.0.0.1:8000/images/tmsfake.png" alt="Task Management Interface">
+                <img class="h-64 object-contain rounded-lg shadow-md" src="{{asset(images/tmsfake.png)}}" alt="Task Management Interface">
             </div>
             <div class="flex justify-center">
-                <img class="h-64 object-contain rounded-lg shadow-md" src="http://127.0.0.1:8000/images/NEW.png" alt="LimitlessTMS Logo">
+                <img class="h-64 object-contain rounded-lg shadow-md" src="{{asset(images/NEW.png)}}" alt="LimitlessTMS Logo">
             </div>
             <div class="flex justify-center">
-                <img class="h-64 object-contain rounded-lg shadow-md" src="http://127.0.0.1:8000/images/img.png" alt="Task Management Features">
+                <img class="h-64 object-contain rounded-lg shadow-md" src="{{asset(images/img.png)}}" alt="Task Management Features">
             </div>
         </div>
     </div>
